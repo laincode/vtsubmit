@@ -224,6 +224,14 @@ class VTSubmit:
             self.scan_file(self.file)
             self.timer()
 
+    def scan_file_list(self,filelist):
+        self.filelist = filelist
+        file = open(self.filelist)
+        for f in file:
+            self.scan_file(f.rstrip('\n'))
+            self.timer()
+        file.close()
+
     def rescan_file(self,resource):
         self.sha = resource
         print "----------------------------------------------"
@@ -245,6 +253,14 @@ class VTSubmit:
             else:
                 print "The requested resource is not among the finished, queued or pending scans. Go for the report ./log/report.log"
                 self.report_log("Rescan", response_dict)
+
+    def rescan_file_list(self,hashlist):
+        self.hashlist = hashlist
+        hash = open(self.hashlist)
+        for h in hash:
+            self.rescan_file(h.rstrip('\n'))
+            self.timer()
+        hash.close()
 
     def scan_url(self,url):
         self.url = url
@@ -272,7 +288,7 @@ class VTSubmit:
         self.ufile = ufile
         f = open(self.ufile)
         for url in f:
-            self.scan_url(url)
+            self.scan_url(url.rstrip('\n'))
             self.timer()
         f.close()
 
@@ -404,11 +420,13 @@ class VTSubmit:
         parser = optparse.OptionParser()
         parser.set_usage(usage)
 
-        parser.add_option("--scanfile", dest="file", help="Sending and scanning a file (ex: --scanfile 'file_path')", default=None)
-        parser.add_option("--scanfolder", dest="folder", help="Sending and scanning files in a folder (ex: --scanfolder 'folder_path')", default=None)
-        parser.add_option("--rescanfile", dest="rescanfile", help="Rescanning already submitted files (ex: --rescanfile 'md5/sha1/sha256')", default=None)
+        parser.add_option("--scanfile", dest="file", help="Sending and scanning a file (ex: --scanfile 'file')", default=None)
+        parser.add_option("--scanfolder", dest="folder", help="Sending and scanning files in a folder (ex: --scanfolder 'folder')", default=None)
+        parser.add_option("--scanfilelist", dest="filelist", help="Sending and scannig a file that contains a list of file paths  (ex: --scanfilelist 'file')", default=None)
+        parser.add_option("--rescanfile", dest="rescanfile", help="Rescanning already submitted file (ex: --rescanfile 'md5/sha1/sha256')", default=None)
+        parser.add_option("--rescanfilelist", dest="rescanfilelist", help="Rescanning already submitted files from a file that contains a list of hashes (ex: --rescanfilelist 'hash_file')", default=None)
         parser.add_option("--scanurl", dest="url", help="Sending and scanning an URL (ex: --scanurl 'URL')", default=None)
-        parser.add_option("--scanurlfile", dest="urlfile", help="Sending and scanning a file with a list of URLs (ex: --scanurlfile 'file_path')", default=None)
+        parser.add_option("--scanurlfile", dest="urlfile", help="Sending and scanning a file that contains a list of URLs (ex: --scanurlfile 'url_file')", default=None)
         parser.add_option("--reportip", dest="reportip", help="Retrieving IP address reports (ex: --reportip 'IP')", default=None)
         parser.add_option("--reportdomain", dest="reportdomain", help="Retrieving domain reports (ex: --reportdomain 'domain')", default=None)
         parser.add_option("--comment", dest="comment", help="Make comments on files and URLs (ex: --comment 'URL' 'comment' or --comment 'md5/sha1/sha256' 'comment')", default=None)
@@ -418,7 +436,7 @@ class VTSubmit:
 
         from config import api
         for key in api:
-            api_key = key['key']
+            self.api_key = key['key']
 
         if self.api_key == '':
 	    print 'Error - You must set API Key. Go to www.virustotal.com to get one.'
@@ -426,7 +444,7 @@ class VTSubmit:
 
         if options.file != None:
             if os.path.isfile(options.file):
-                vtsubmit = VTSubmit(api_key)
+                vtsubmit = VTSubmit(self.api_key)
                 vtsubmit.scan_file(options.file)
             else:
                 print "Error - File doesn't exist"
@@ -434,34 +452,50 @@ class VTSubmit:
 
         elif options.folder != None:
             if os.path.isdir(options.folder):
-                vtsubmit = VTSubmit(api_key)
+                vtsubmit = VTSubmit(self.api_key)
                 vtsubmit.scan_folder(options.folder)
             else:
                 print "Error - Folder doesn't exist"
                 sys.exit(1)
 
+        elif options.filelist != None:
+            if os.path.isfile(options.filelist):
+                vtsubmit = VTSubmit(self.api_key)
+                vtsubmit.scan_file_list(options.filelist)
+            else:
+                print "Error - File list doesn't exist"
+                sys.exit(1)
+   
         elif options.rescanfile != None:
-            vtsubmit = VTSubmit(api_key)
+            vtsubmit = VTSubmit(self.api_key)
             vtsubmit.rescan_file(options.rescanfile)
- 
+
+        elif options.rescanfilelist != None:
+            if os.path.isfile(options.rescanfilelist):
+                vtsubmit = VTSubmit(self.api_key)
+                vtsubmit.rescan_file_list(options.rescanfilelist)
+            else:
+                print "Error - Hash list doesn't exist"
+                sys.exit(1)
+
         elif options.url != None:
-            vtsubmit = VTSubmit(api_key)
+            vtsubmit = VTSubmit(self.api_key)
             vtsubmit.scan_url(options.url)
 
         elif options.urlfile != None:
-            vtsubmit = VTSubmit(api_key)
+            vtsubmit = VTSubmit(self.api_key)
             vtsubmit.scan_url_file(options.urlfile)
 
         elif options.reportip != None:
-            vtsubmit = VTSubmit(api_key)
+            vtsubmit = VTSubmit(self.api_key)
             vtsubmit.retrieve_ip(options.reportip)
 
         elif options.reportdomain != None:
-            vtsubmit = VTSubmit(api_key)
+            vtsubmit = VTSubmit(self.api_key)
             vtsubmit.retrieve_domain(options.reportdomain)
 
         elif options.comment != None:
-            vtsubmit = VTSubmit(api_key)
+            vtsubmit = VTSubmit(self.api_key)
             if len(args) == 1:
                 vtsubmit.send_comment(options.comment,args[0])
             else:
