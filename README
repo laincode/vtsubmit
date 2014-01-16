@@ -4,7 +4,7 @@ Virus Total Submit API 2.0
 
 Go to VirusTotal, sign up and get your API Key: www.virustotal.com
 
-Set your API Key in the configuration file option: config.py
+Set your API Key in configuration file: config.py
 
 
 Usage
@@ -14,30 +14,19 @@ $ python vtsubmit
 Usage: python vtsubmit [options]
 
 Options:
-  -h, --help            show this help message and exit
-  --scanfile=FILE       Sending and scanning a file (ex: --scanfile 'file')
-  --scanfolder=FOLDER   Sending and scanning files in a folder (ex:
-                        --scanfolder 'folder')
-  --scanfilelist=FILELIST
-                        Sending and scannig a file that contains a list of
-                        file paths  (ex: --scanfilelist 'file')
-  --rescanfile=RESCANFILE
-                        Rescanning already submitted file (ex: --rescanfile
-                        'md5/sha1/sha256')
-  --rescanfilelist=RESCANFILELIST
-                        Rescanning already submitted files from a file that
-                        contains a list of hashes (ex: --rescanfilelist
-                        'hash_file')
-  --scanurl=URL         Sending and scanning an URL (ex: --scanurl 'URL')
-  --scanurlfile=URLFILE
-                        Sending and scanning a file that contains a list of
-                        URLs (ex: --scanurlfile 'url_file')
-  --reportip=REPORTIP   Retrieving IP address reports (ex: --reportip 'IP')
-  --reportdomain=REPORTDOMAIN
-                        Retrieving domain reports (ex: --reportdomain
-                        'domain')
-  --comment=COMMENT     Make comments on files and URLs (ex: --comment 'URL'
-                        'comment' or --comment 'md5/sha1/sha256' 'comment')
+  -h, --help       show this help message and exit
+  --scanfile       Sending and scanning a file (ex: --scanfile 'file')
+  --scanfolder     Sending and scanning files in a folder (ex: --scanfolder 'folder')
+  --scanfilelist   Sending a file which contains the list of files for scanning (ex: --scanfilelist 'file')
+  --rescanfile     Rescanning a file (ex: --rescanfile 'md5/sha1/sha256')
+  --rescanfilelist Sending a file which contains a list of hashes for rescanning (ex: --rescanfilelist 'hash_file')
+  --scanurl        Sending and scanning an URL (ex: --scanurl 'URL')
+  --scanurlfile    Sending a file which contains a list of URLs for scanning (ex: --scanurlfile 'url_file')
+  --reportip       Retrieving IP address reports (ex: --reportip 'IP')
+  --reportdomain   Retrieving domain reports (ex: --reportdomain 'domain')
+  --comment        Make comments on files and URLs (ex: --comment 'URL' 'comment' or --comment 'md5/sha1/sha256' 'comment')
+
+
 
 
 
