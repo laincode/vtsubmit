@@ -427,8 +427,8 @@ class VTSubmit:
         parser.add_option("--rescanfilelist", dest="rescanfilelist", help="Sending a file which contains a list of hashes for rescanning (ex: --rescanfilelist 'hash_file')", default=None)
         parser.add_option("--scanurl", dest="url", help="Sending and scanning an URL (ex: --scanurl 'URL')", default=None)
         parser.add_option("--scanurlfile", dest="urlfile", help="Sending a file which contains a list of URLs for scanning (ex: --scanurlfile 'url_file')", default=None)
-        parser.add_option("--reportip", dest="reportip", help="Retrieving IP address reports (ex: --reportip 'IP')", default=None)
-        parser.add_option("--reportdomain", dest="reportdomain", help="Retrieving domain reports (ex: --reportdomain 'domain')", default=None)
+        parser.add_option("--reportip", dest="reportip", help="Retrieving IP address reports (including the information recorded by VirusTotal's Passive DNS infrastructure) (ex: --reportip 'IP')", default=None)
+        parser.add_option("--reportdomain", dest="reportdomain", help="Retrieving domain reports (including the information recorded by VirusTotal's Passive DNS infrastructure) (ex: --reportdomain 'domain')", default=None)
         parser.add_option("--comment", dest="comment", help="Make comments on files and URLs (ex: --comment 'URL' 'comment' or --comment 'md5/sha1/sha256' 'comment')", default=None)
 
 

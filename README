@@ -1,5 +1,5 @@
 ==========================
-Virus Total Submit API 2.0 
+VirusTotal Submit API 2.0 
 ==========================
 
 Go to VirusTotal, sign up and get your API Key: www.virustotal.com
@@ -22,9 +22,10 @@ Options:
   --rescanfilelist Sending a file which contains a list of hashes for rescanning (ex: --rescanfilelist 'hash_file')
   --scanurl        Sending and scanning an URL (ex: --scanurl 'URL')
   --scanurlfile    Sending a file which contains a list of URLs for scanning (ex: --scanurlfile 'url_file')
-  --reportip       Retrieving IP address reports (ex: --reportip 'IP')
-  --reportdomain   Retrieving domain reports (ex: --reportdomain 'domain')
+  --reportip       Retrieving IP address reports (including the information recorded by VirusTotal's Passive DNS infrastructure) (ex: --reportip 'IP')
+  --reportdomain   Retrieving domain reports (including the information recorded by VirusTotal's Passive DNS infrastructure) (ex: --reportdomain 'domain')
   --comment        Make comments on files and URLs (ex: --comment 'URL' 'comment' or --comment 'md5/sha1/sha256' 'comment')
+
 
 
 
