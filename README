@@ -2,6 +2,21 @@
 VirusTotal Submit API 2.0 
 ==========================
 
+  - Sending and scanning a file
+  - Sending and scanning files in a folder
+  - Sending a file which contains the list of files for scanning
+  - Rescanning a file
+  - Sending a file which contains a list of hashes for rescanning
+  - Sending and scanning an URL
+  - Sending a file which contains a list of URLs for scanning
+  - Retrieving IP address reports (including the information recorded by VirusTotal's Passive DNS infrastructure)
+  - Retrieving domain reports (including the information recorded by VirusTotal's Passive DNS infrastructure)
+  - Make comments on files and URLs
+
+
+First
+=====
+
 Go to VirusTotal, sign up and get your API Key: www.virustotal.com
 
 Set your API Key in configuration file: config.py
